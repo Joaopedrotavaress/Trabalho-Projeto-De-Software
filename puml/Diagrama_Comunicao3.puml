@@ -1,0 +1,15 @@
+@startuml
+title UC-11 - Diagrama de Comunicação (Registrar Manutenção)
+
+object Administrador
+object Frontend
+object API_Backend
+object BancoDeDados
+
+Administrador -> Frontend : 1. Preenche dados da manutenção
+Frontend -> API_Backend : 2. POST /veiculos/{id}/manutencoes
+API_Backend -> BancoDeDados : 3. INSERT Manutenção
+BancoDeDados --> API_Backend : 4. Confirmação
+API_Backend --> Frontend : 5. 201 Created
+Frontend --> Administrador : 6. Exibe confirmação
+@enduml

@@ -1,0 +1,66 @@
+@startuml
+
+class Pedido {
+    +id: Long
+    +cliente: String
+    +municipio: String
+    +uf: String
+    +endereco: String
+    +numero: String
+    +complemento: String
+    +bairro: String
+    +celular: String
+    +produto: String
+    +quantidade: Integer
+    +comunicacaoInterna: String
+    +parada: String
+    +data: LocalDate
+    +hora: String
+    +status: String
+    +observacao: String
+    --
+    +getDataHora(): LocalDateTime
+    +atualizarStatus(novoStatus: String): void
+    +adicionarObservacao(texto: String): void
+}
+
+class Veiculo {
+    +id: Long
+    +placa: String
+    +modelo: String
+    +capacidade: Float
+    +status: String
+    +tipo: String
+    --
+    +atualizarStatus(novoStatus: String): void
+    +atribuirPedido(pedido: Pedido): void
+    +registrarManutencao(manutencao: Manutencao): void
+    +listarManutencoes(): List<Manutencao>
+}
+
+class Manutencao {
+    +id: Long
+    +motivo: String
+    +descricao: String
+    +data: LocalDate
+    +valor: Float
+    --
+    +registrar(): void
+    +getResumo(): String
+}
+
+class ExcelFile {
+    +id: Long
+    +nome: String
+    +tipo: String
+    +dados: byte[]
+    --
+    +processarArquivo(): List<Pedido>
+    +validarArquivo(): boolean
+}
+
+ExcelFile "1" --> "0..*" Pedido : origem
+Veiculo "1" --> "0..*" Manutencao : manutencoes
+Veiculo "1" --> "0..*" Pedido : associado\n(opcional)
+
+@enduml

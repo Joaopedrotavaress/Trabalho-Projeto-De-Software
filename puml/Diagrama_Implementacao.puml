@@ -1,0 +1,18 @@
+@startuml
+node "Servidor Web" {
+    artifact "Front/get-route\n(Vite + React)" as Frontend
+}
+
+node "Servidor de Aplicação" {
+    artifact "Back/getRoute\n(Spring Boot)" as Backend
+}
+
+database "Banco de Dados\n(Relacional)" as DB
+
+artifact "Arquivo Excel" as Excel
+
+Frontend --> Backend : HTTP (REST API)
+Backend --> DB : JDBC/Hibernate
+Backend --> Excel : Importação/Exportação
+
+@enduml

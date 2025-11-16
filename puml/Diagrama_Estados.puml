@@ -1,0 +1,20 @@
+@startuml
+title Diagrama de Estados – Pedido
+
+[*] --> Importado : Pedido criado\na partir do Excel
+
+Importado --> Pendente : Validado pelo sistema
+Importado --> Cancelado : Erro grave no arquivo
+
+Pendente --> Em_Rota : Atribuído a um veículo
+Pendente --> Cancelado : Pedido removido / inconsistente
+
+Em_Rota --> Entregue : Confirmação da entrega
+Em_Rota --> Atrasado : Horário extrapolado
+
+Atrasado --> Entregue : Entrega concluída
+
+Entregue --> [*]
+Cancelado --> [*]
+
+@enduml

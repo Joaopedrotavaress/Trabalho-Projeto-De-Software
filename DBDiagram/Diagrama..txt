@@ -1,0 +1,87 @@
+// Database diagram for GetRoute (DBML for dbdiagram.io)
+
+Table veiculo {
+  id bigint [pk, increment]
+  placa varchar(20) [not null, unique]
+  modelo varchar(100)
+  capacidade double
+  quilometragem double
+  consumo_medio double
+  status varchar(50)
+  tipo varchar(50)
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table manutencao {
+  id bigint [pk, increment]
+  motivo varchar(255)
+  descricao text
+  data date
+  valor numeric(12,2)
+  veiculo_id bigint [not null]
+  created_at timestamp
+}
+
+Table excel_file {
+  id bigint [pk, increment]
+  nome varchar(255)
+  tipo varchar(100)
+  dados bytea
+  created_at timestamp
+}
+
+Table pedido {
+  id bigint [pk, increment]
+  cliente varchar(255)
+  municipio varchar(100)
+  uf varchar(2)
+  endereco varchar(255)
+  numero varchar(50)
+  complemento varchar(255)
+  bairro varchar(100)
+  celular varchar(30)
+  produto varchar(255)
+  quantidade int
+  comunicacao_interna text
+  parada varchar(100)
+  data date
+  hora varchar(50)
+  status boolean
+  observacao text
+  excel_file_id bigint
+  veiculo_id bigint
+  created_at timestamp
+}
+
+Table funcionario {
+  id bigint [pk, increment]
+  nome varchar(255) [not null]
+  email varchar(255)
+  telefone varchar(50)
+  cargo varchar(100)
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table adicional {
+  id bigint [pk, increment]
+  funcionario_id bigint [not null]
+  data date
+  valor numeric(12,2)
+  descricao text
+  created_at timestamp
+}
+
+Table relatorio {
+  id bigint [pk, increment]
+  data_criacao timestamp
+  nome_arquivo varchar(255)
+  email_destinatario varchar(255)
+  observacoes text
+}
+
+Ref: manutencao.veiculo_id > veiculo.id
+Ref: pedido.excel_file_id > excel_file.id
+Ref: pedido.veiculo_id > veiculo.id
+Ref: adicional.funcionario_id > funcionario.id

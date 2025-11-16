@@ -1,0 +1,16 @@
+@startuml
+title UC-01 - Diagrama de Comunicação (Importar Excel)
+
+object Administrador
+object Frontend
+object API_Backend
+object BancoDeDados
+
+Administrador -> Frontend : 1. Envia arquivo Excel
+Frontend -> API_Backend : 2. POST /excel/upload
+API_Backend -> BancoDeDados : 3. Salvar ExcelFile
+API_Backend -> BancoDeDados : 4. Salvar Pedidos extraídos
+BancoDeDados --> API_Backend : 5. Confirmação
+API_Backend --> Frontend : 6. Retorno (sucesso/erros)
+Frontend --> Administrador : 7. Exibe resultado
+@enduml

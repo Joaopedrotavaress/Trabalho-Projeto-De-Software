@@ -1,0 +1,27 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+LAYOUT_LEFT_RIGHT()
+
+Person(admin, "Administrador", "Usuário responsável por importar pedidos, planejar rotas, gerenciar veículos e gerar relatórios.")
+
+System(getroute, "GetRoute", "Sistema de gestão de rotas, pedidos e manutenção de veículos.")
+
+Container(webui, "Web Frontend", "React / Browser", "Interface web usada pelo administrador (SPA).")
+Container(api, "API Backend", "Spring Boot", "Processamento de pedidos, rotas, relatórios e integrações externas.")
+ContainerDb(db, "Banco de Dados", "MySQL", "Armazena veículos, pedidos, manutenções, metadados de arquivos e relatórios.")
+Container(storage, "Storage de Arquivos", "File / Cloud Storage", "Armazena uploads (Excel, PDFs) quando aplicável.")
+
+System_Ext(google, "Google Geocoding API", "Serviço externo de geocodificação de endereços.")
+System_Ext(ors, "OpenRouteService API", "API para cálculo de rotas/direções.")
+System_Ext(gmail, "Gmail API", "Envio de e-mail com anexos.")
+
+Rel(admin, webui, "Usa via navegador", "HTTPS")
+Rel(webui, api, "Requisições REST", "HTTPS / JSON")
+Rel(api, db, "Leitura/Gravação", "JDBC")
+Rel(api, storage, "Upload/Download de arquivos", "HTTP/HTTPS")
+Rel(api, google, "Consulta coordenadas (geocoding)", "HTTPS / JSON")
+Rel(api, ors, "Solicita cálculo de rotas", "HTTPS / JSON")
+Rel(api, gmail, "Envia relatórios por e-mail", "HTTPS (OAuth2)")
+
+@enduml

@@ -1,0 +1,53 @@
+@startuml
+title Diagramas de Sequência do Sistema (UC-01, UC-05, UC-11)
+
+actor Administrador
+participant "Frontend" as FE
+participant "API Backend" as BE
+participant "Banco de Dados" as DB
+
+' ============================================================
+== UC-01 - Importar Pedidos via Excel ==
+' ============================================================
+
+Administrador -> FE : Seleciona arquivo Excel\nou preenche formulário
+FE -> BE : Envia dados/arquivo para processamento
+BE -> BE : Valida dados do pedido
+BE -> DB : Salva pedido(s)
+DB --> BE : Confirma salvamento
+BE --> FE : Retorna sucesso/erro
+FE --> Administrador : Exibe resultado da importação
+
+
+' ============================================================
+== UC-05 - Atribuir Pedido a Veículo ==
+' ============================================================
+
+Administrador -> FE : Acessa tela de planejamento de rotas
+FE -> BE : Solicita lista de pedidos e veículos
+BE -> DB : Consulta pedidos e veículos
+DB --> BE : Retorna dados
+BE --> FE : Envia dados
+FE --> Administrador : Exibe interface de associação
+
+Administrador -> FE : Seleciona pedido e veículo
+FE -> BE : Envia associação
+BE -> DB : Atualiza pedido com ID do veículo
+DB --> BE : Confirma atualização
+BE --> FE : Retorna sucesso
+FE --> Administrador : Exibe confirmação
+
+
+' ============================================================
+== UC-11 - Registrar Manutenção de Veículo ==
+' ============================================================
+
+Administrador -> FE : Acessa tela de veículos
+Administrador -> FE : Adiciona manutenção ao veículo
+FE -> BE : Envia dados da manutenção
+BE -> DB : Salva manutenção
+DB --> BE : Confirma salvamento
+BE --> FE : Retorna sucesso
+FE --> Administrador : Exibe confirmação
+
+@enduml

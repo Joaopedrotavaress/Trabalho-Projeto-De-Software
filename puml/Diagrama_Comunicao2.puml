@@ -1,0 +1,15 @@
+@startuml
+title UC-05 - Diagrama de Comunicação (Atribuir Pedido a Veículo)
+
+object Administrador
+object Frontend
+object API_Backend
+object BancoDeDados
+
+Administrador -> Frontend : 1. Seleciona pedido e veículo
+Frontend -> API_Backend : 2. POST /pedidos/{id}/atribuir-veiculo
+API_Backend -> BancoDeDados : 3. UPDATE pedido.veiculoId
+BancoDeDados --> API_Backend : 4. Confirmação
+API_Backend --> Frontend : 5. Sucesso
+Frontend --> Administrador : 6. Exibe confirmação
+@enduml

@@ -1,0 +1,62 @@
+@startuml
+package "Frontend (React)" {
+    [UI Administrador] <<component>>
+    [Componentes de Formulário] <<component>>
+    [Componentes de Tabela] <<component>>
+    [Gerador de Relatórios] <<component>>
+    [Gestor de Rotas] <<component>>
+    [Gestor de Veículos] <<component>>
+    [Gestor de Manutenção] <<component>>
+    [Gestor de Pedidos] <<component>>
+    [Importador Excel] <<component>>
+
+    [UI Administrador] --> [Gestor de Pedidos]
+    [UI Administrador] --> [Gestor de Veículos]
+    [UI Administrador] --> [Gestor de Manutenção]
+    [UI Administrador] --> [Gestor de Rotas]
+    [Gestor de Pedidos] --> [Componentes de Formulário]
+    [Gestor de Pedidos] --> [Componentes de Tabela]
+    [Gestor de Veículos] --> [Componentes de Tabela]
+    [Gestor de Manutenção] --> [Componentes de Formulário]
+    [Gestor de Manutenção] --> [Componentes de Tabela]
+    [Gestor de Pedidos] --> [Importador Excel]
+    [Gestor de Pedidos] --> [Gerador de Relatórios]
+}
+
+package "Backend (Spring Boot)" {
+    [API REST] <<component>>
+    [ControladorPedido] <<component>>
+    [ControladorVeiculo] <<component>>
+    [ControladorManutencao] <<component>>
+    [ServicoPedido] <<component>>
+    [ServicoVeiculo] <<component>>
+    [ServicoManutencao] <<component>>
+    [RepositorioPedido] <<component>>
+    [RepositorioVeiculo] <<component>>
+    [RepositorioManutencao] <<component>>
+    [ImportadorExcel] <<component>>
+    [GeradorRelatorios] <<component>>
+
+    [API REST] --> [ControladorPedido]
+    [API REST] --> [ControladorVeiculo]
+    [API REST] --> [ControladorManutencao]
+    [ControladorPedido] --> [ServicoPedido]
+    [ControladorVeiculo] --> [ServicoVeiculo]
+    [ControladorManutencao] --> [ServicoManutencao]
+    [ServicoPedido] --> [RepositorioPedido]
+    [ServicoVeiculo] --> [RepositorioVeiculo]
+    [ServicoManutencao] --> [RepositorioManutencao]
+    [ControladorPedido] --> [ImportadorExcel]
+    [ServicoPedido] --> [GeradorRelatorios]
+}
+
+database "Banco de Dados Relacional" as DB
+
+[RepositorioPedido] --> DB
+[RepositorioVeiculo] --> DB
+[RepositorioManutencao] --> DB
+
+' Comunicação entre Frontend e Backend
+[UI Administrador] --> [API REST] : HTTP/JSON
+
+@enduml

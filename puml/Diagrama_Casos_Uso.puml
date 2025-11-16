@@ -1,0 +1,21 @@
+@startuml
+actor Administrador
+
+Administrador --> (UC-01 Importar Pedidos via Excel)
+Administrador --> (UC-02 Gerenciar Pedidos)
+Administrador --> (UC-03 Gerenciar Veículos)
+Administrador --> (UC-04 Planejar Rotas)
+Administrador --> (UC-05 Atribuir Pedido a Veículo)
+Administrador --> (UC-06 Gerar Relatórios)
+
+(UC-02 Gerenciar Pedidos) ..> (UC-07 Atualizar Status do Pedido) : <<include>>
+(UC-02 Gerenciar Pedidos) ..> (UC-08 Adicionar Observação) : <<include>>
+
+(UC-03 Gerenciar Veículos) ..> (UC-09 Cadastrar Veículo) : <<include>>
+(UC-03 Gerenciar Veículos) ..> (UC-10 Atualizar Status do Veículo) : <<include>>
+(UC-03 Gerenciar Veículos) ..> (UC-11 Adicionar Manutenção) : <<include>>
+(UC-03 Gerenciar Veículos) ..> (UC-12 Adicionar Combustível) : <<include>>
+
+(UC-04 Planejar Rotas) ..> (UC-05 Atribuir Pedido a Veículo) : <<include>>
+
+@enduml
